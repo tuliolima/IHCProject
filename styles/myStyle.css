@@ -1,0 +1,13 @@
+/* 
+*/
+
+@charset "UTF-8";
+
+.app-content {
+    background: #e8e8e8;
+}
+
+.app-grid {
+    max-width: 900px;
+    margin: 0 auto;
+}
