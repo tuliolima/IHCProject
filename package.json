@@ -1,0 +1,29 @@
+{
+  "name": "IHCProject",
+  "version": "1.0.0",
+  "description": "Trabalho 1 da disciplina de IHC 2018/1, Universidade de Brasília - UnB.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuliolima/IHCProject.git"
+  },
+  "keywords": [],
+  "author": "Otávio Alves Dias",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tuliolima/IHCProject/issues"
+  },
+  "homepage": "https://github.com/tuliolima/IHCProject#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "jade": "^1.11.0",
+    "mongoose": "^5.1.5"
+  }
+}
