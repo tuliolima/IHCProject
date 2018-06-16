@@ -8,6 +8,29 @@
 }
 
 .app-grid {
-    max-width: 900px;
+    max-width: 600px;
     margin: 0 auto;
+}
+
+.events-title {
+    min-height: 30px;
+    flex-direction: row;
+    padding: 8px;
+}
+
+.event-card {
+    min-height: 50px;
+    flex-direction: row;
+    padding: 8px;
+    background: gray;
+}
+
+.news-title {
+    min-height: 30px;
+    flex-direction: row;
+    padding: 8px;
+}
+
+.login-card {
+    padding: 24px;
 }
