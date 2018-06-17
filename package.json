@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "start": "node app"
+    "start": "node ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -21,8 +21,10 @@
   },
   "homepage": "https://github.com/tuliolima/IHCProject#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "mongoose": "^5.1.5"
+    "mongoose": "^5.1.5",
+    "serve-favicon": "^2.5.0"
   }
 }

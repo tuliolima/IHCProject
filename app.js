@@ -1,31 +1,46 @@
-//import modules
+//Import modules
 var express = require('express');
-var mongoose = require("mongoose");
-var bodyParser = require("body-parser");
+var path = require('path');
+var favicon = require('serve-favicon');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var path = require("path");
 
-//set the routes
+//Set the routes
 var routes = require("./routes/index");
 
-//set the server port
-var port = 8081;
-
-//our app variable using express module
+//Our app variable using express module
 var app = express();
 
 // ----- View engine setup -----
-// set the view engine to ejs
+//Set the view engine to ejs
 app.set('view engine', 'ejs');
-//use the public folder as static folder
+//Use the public folder as static folder
 app.use(express.static('public'));
-//set the views folder for pages (.html and .ejs files)
+//Set the views folder for pages (.html and .ejs files)
 app.set('views', path.join(__dirname , '/views'));
 
-//Setting the used routes
+//Set the used routes
 app.use('/', routes);
 
-// ----- SERVER -----
-//server variable that listens in the specified port
-var server = app.listen(port, function () { 
-    console.log("Listening at http://localhost:%s", port);
- });
+// ----- ERRORS -----
+//Catch 404 and forward to error handler
+app.use(function(request, response, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+  });
+  
+  //Error handler
+  app.use(function(err, request, response, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = request.app.get('env') === 'development' ? err : {};
+  
+    //Render the error page
+    response.status(err.status || 500);
+    response.render('error');
+  });
+
+//Exporting the module
+module.exports = app;
