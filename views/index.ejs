@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Agenda</title>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/material.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/material.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/myStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <base href="/">
 </head>
 
@@ -17,12 +18,12 @@
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
                 <!-- Title -->
-                <span class="mdl-layout-title">Title</span>
+                <span class="mdl-layout-title" href="index.html">Minha Agenda</span>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation. We hide it in small screens. -->
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
-                    <a class="mdl-navigation__link" href="">Link</a>
+                    <a class="mdl-navigation__link" href="login.html">Login</a>
                     <a class="mdl-navigation__link" href="">Link</a>
                     <a class="mdl-navigation__link" href="">Link</a>
                     <a class="mdl-navigation__link" href="">Link</a>
@@ -30,20 +31,111 @@
             </div>
         </header>
         <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">Title</span>
+            <span class="mdl-layout-title">Minha Agenda</span>
             <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="index.html">Dashboard</a>
+                <a class="mdl-navigation__link" href="">Calendário</a>
+                <a class="mdl-navigation__link" href="login.html">Login</a>
+                <a class="mdl-navigation__link" href="signup.html">Cadastro</a>
+                <a class="mdl-navigation__link" href="">Sair</a>
             </nav>
         </div>
         <main class="mdl-layout__content">
             <div class="panel-content app-content">
                 <!-- Your content goes here -->
                 <div class="mdl-grid app-grid">
-                    <div class="mdl-card">
+                    <div class="mdl-card events-title mdl-cell mdl-cell--12-col">
+                        <span>Eventos</span>
+                        <div class="mdl-layout-spacer"></div>
+                        <button class="mdl-button mdl-js-button mdl-button--accent" id="button-add-event">
+                            <i class="material-icons">add</i>
+                        </button>
 
+                    </div>
+                    <div class="events-list">
+                        <div class="mdl-card event-template event-card mdl-cell mdl-cell--12-col" hidden>
+                            <div class="title"></div>
+                            <div class="date"></div>
+                        </div>
+                        <div class="mdl-card event-card mdl-cell mdl-cell--12-col">
+                            <div class="title" id="event-title">
+                                Apresentação de trabalho.
+                            </div>
+                            <div class="date" id="event-date">
+                                28/07
+                            </div>
+
+                        </div>
+                        <div class="mdl-card event-card mdl-cell mdl-cell--12-col">
+                            <div class="title" id="event-title">
+                                Apresentação de trabalho.
+                            </div>
+                            <div class="date" id="event-date">
+                                28/07
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="mdl-card news-title mdl-cell mdl-cell--12-col">
+                        <span>Notícias</span>
+                        <div class="mdl-layout-spacer"></div>
+                        <button class="mdl-button mdl-js-button mdl-button--accent" id="button-">
+                            <i class="material-icons">settings</i>
+                        </button>
+                    </div>
+                    <div class="mdl-card news-card mdl-cell mdl-cell--6-col">
+                        <div class="mdl-card__media mdl-color-text--grey-50">
+                            <h3>Notícia</h3>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                            Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur
+                            ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
+                        </div>
+                    </div>
+                    <div class="mdl-card news-card mdl-cell mdl-cell--6-col">
+                        <div class="mdl-card__media mdl-color-text--grey-50">
+                            <h3>Notícia</h3>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                            Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur
+                            ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
+                        </div>
+                    </div>
+                    <div class="mdl-card news-card mdl-cell mdl-cell--6-col">
+                        <div class="mdl-card__media mdl-color-text--grey-50">
+                            <h3>Notícia</h3>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                            Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur
+                            ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
+                        </div>
+                    </div>
+                    <div class="mdl-card news-card mdl-cell mdl-cell--6-col">
+                        <div class="mdl-card__media mdl-color-text--grey-50">
+                            <h3>Notícia</h3>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                            Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur
+                            ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
+                        </div>
+                    </div>
+                    <div class="mdl-card news-card mdl-cell mdl-cell--6-col">
+                        <div class="mdl-card__media mdl-color-text--grey-50">
+                            <h3>Notícia</h3>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                            Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur
+                            ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
+                        </div>
+                    </div>
+                    <div class="mdl-card news-card mdl-cell mdl-cell--6-col">
+                        <div class="mdl-card__media mdl-color-text--grey-50">
+                            <h3>Notícia</h3>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                            Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur
+                            ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -51,6 +143,8 @@
     </div>
 
     <!-- Insert link to app.js here -->
+    <script src="scripts/material.min.js"></script>
+    <script src="scripts/app.js"></script>
 </body>
 
 </html>
