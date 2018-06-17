@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Agenda</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/material.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/myStyle.css">
+    <script src="/javascripts/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Cadastro</span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation. We hide it in small screens. -->
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" href="">Link</a>
+                    <a class="mdl-navigation__link" href="">Link</a>
+                    <a class="mdl-navigation__link" href="">Link</a>
+                    <a class="mdl-navigation__link" href="">Link</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Minha Agenda</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="index.html">Dashboard</a>
+                <a class="mdl-navigation__link" href="">Calendário</a>
+                <a class="mdl-navigation__link" href="login.html">Login</a>
+                <a class="mdl-navigation__link" href="signup.html">Cadastro</a>
+                <a class="mdl-navigation__link" href="">Sair</a>
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <div class="panel-content app-content">
+                <!-- Your content goes here -->
+                <div class="mdl-grid app-grid">
+                    <div class="mdl-card login-card mdl-cell mdl-cell--12-col">
+                        <h3>Cadastro</h3>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" id="name">
+                            <label class="mdl-textfield__label" for="name">Nome completo</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" id="user">
+                            <label class="mdl-textfield__label" for="user">Nome para login</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="password" id="password">
+                            <label class="mdl-textfield__label" for="password">Senha</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="password" id="re-password">
+                            <label class="mdl-textfield__label" for="re-password">Repita a senha</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="email" id="email">
+                            <label class="mdl-textfield__label" for="email">Email</label>
+                        </div>
+                        <button class="mdl-button mdl-js-button mdl-button--primary" id="button-finish_signup">
+                            Vamos lá!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Insert link to app.js here -->
+</body>
+
+</html>
