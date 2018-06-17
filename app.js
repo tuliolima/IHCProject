@@ -66,6 +66,7 @@ app.use(function(request, response, next) {
     //Render the error page
     response.status(err.status || 500);
     console.log("Error status: %s", err.status);
+    console.log("%s", err.message);
     response.render('error');
   });
 
