@@ -5,12 +5,38 @@ var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var path = require("path");
+var mongoose = require('mongoose');
 
 //Set the routes
 var routes = require("./routes/index");
 
 //Our app variable using express module
 var app = express();
+
+//Set up default mongoose connection
+var mongoDB = 'mongodb://localhost/webapp';
+mongoose.connect(mongoDB);
+
+// Get Mongoose to use the global promise library
+mongoose.Promise = global.Promise;
+//Get the default connection
+var db = mongoose.connection;
+
+// MONGOOSE CONNECTION EVENTS
+// When successfully connected
+mongoose.connection.on('connected', function () {  
+  console.log('Mongoose connection open to: ' + mongoose.connection.name);
+}); 
+
+// If the connection throws an error
+mongoose.connection.on('error',function (err) {  
+  console.log('Mongoose connection error: ' + err);
+}); 
+
+// When the connection is disconnected
+mongoose.connection.on('disconnected', function () {  
+  console.log('Mongoose disconnected'); 
+});
 
 // ----- View engine setup -----
 //Set the view engine to ejs
@@ -39,6 +65,7 @@ app.use(function(request, response, next) {
   
     //Render the error page
     response.status(err.status || 500);
+    console.log("Error status: %s", err.status);
     response.render('error');
   });
 
