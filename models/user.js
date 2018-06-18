@@ -3,13 +3,19 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema(
     {
-        first_name: {type: String, required: true, max: 100},
-        last_name: {type: String, required: true, max: 100},
+        name:{
+            first: {type: String, required: true, maxlength: 100},
+            last: {type: String, required: true, maxlength: 100}
+        },
         date_of_birth: {type: Date, required: true},
-        email: {type: String, required: true, max: 50},
-        password: {type: String, required: true, min: 8, max: 30},
-        username: {type: String, required: true, min: 3, max: 30}
-        // Tem que colocar maiores informações
+        gender: {type: String, enum: ['Male','Female']},
+        handicap: {Type: Boolean, default: false},
+        profession: {Type: String, maxlength: 100},
+        email: {type: String, required: true, maxlength: 50},
+        password: {type: String, required: true, minlength: 8, maxlength: 30},
+        username: {type: String, required: true, minlength: 3, maxlength: 30},
+        interests: [{type: String, enum:['Sports','Technology','Videogames','Nature','Travel','Economy','Healthcare','Security','Gossip','Gastronomy','Relationships','Movies','Music','Religion','History','Party','Education','Politics','Art','None']}],
+        events: [{type: ObjectId, ref: 'Event'}]
     }
   );
 

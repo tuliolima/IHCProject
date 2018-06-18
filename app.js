@@ -6,12 +6,18 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var path = require("path");
 var mongoose = require('mongoose');
+var expressValidator = require('express-validator');
+var expressSession = require('express-session');
 
 //Set the routes
 var routes = require("./routes/index");
-
+var usersRouter = require('./routes/users');
 //Our app variable using express module
 var app = express();
+
+//Setting app uses
+app.use(expressValidator());
+app.use(expressSession({saveUninitialized: false, resave: false}));
 
 //Set up default mongoose connection
 var mongoDB = 'mongodb://localhost/webapp';
@@ -48,6 +54,7 @@ app.set('views', path.join(__dirname , '/views'));
 
 //Set the used routes
 app.use('/', routes);
+app.use('/users', usersRouter);
 
 // ----- ERRORS -----
 //Catch 404 and forward to error handler
