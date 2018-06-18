@@ -65,6 +65,48 @@
         app.events[app.events.length] = event;
     }
 
+    function getApi(wantedContainer, wantedCategory, wantedPageSize, wantedType = 'top-headlines', wantedCountry = 'br') {
+        const ul = document.getElementById(wantedContainer);
+        const uri = 'https://newsapi.org/v2/'
+        const type = wantedType + '?'
+        const country = 'country=' + wantedCountry + '&'
+        const category = 'category=' + wantedCategory + '&'
+        const pageSize = 'pageSize=' + wantedPageSize + '&'
+        const apiKey = 'apiKey=0a1731b051fd452d8b4b8c70b422f295';
+
+        const url = uri + type + country + category + pageSize + apiKey
+
+        fetch(url)
+            .then((resp) => resp.json())
+            .then(function (data) {
+
+                let articles = data.articles;
+
+                return articles.map(function (article) {
+                    let li = createNode('li'),
+                        img = createNode('img'),
+                        span = createNode('span');
+
+                    if (article.urlToImage != null) {
+                        img.src = article.urlToImage
+                        img.width = 300
+                        append(li, img);
+                    }
+                    span.innerHTML = `
+            <br><b>Título </b> ${article.title} 
+            <br><b> Por: </b> ${article.author} 
+            <br> <b>Descrição:</b>${article.description}`;
+
+                    append(li, span);
+                    append(ul, li);
+
+                })
+            })
+            .catch(function (error) {
+                console.log(JSON.stringify(error));
+            })
+    };
+
     // Code starts here:
     updateEvents();
 })();

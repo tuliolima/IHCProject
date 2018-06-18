@@ -4,10 +4,10 @@ var router = express.Router();
 var users_controller = require('../controllers/usersController');
 
 // GET request for creating user. NOTE This must come before route for id (i.e. display user).
-router.get('/user/create', user_controller.user_create_get);
+router.get('/user/create', users_controller.user_create_get);
 
 // POST request for creating user.
-router.post('/user/create', user_controller.user_create_post);
+router.post('/user/create', users_controller.user_create_post);
 
 // GET request to delete user.
 //router.get('/user/:id/delete', user_controller.user_delete_get);

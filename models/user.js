@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+const ObjectId = Schema.Types.ObjectId;
+
 var UserSchema = new Schema(
     {
         name:{
@@ -10,7 +12,7 @@ var UserSchema = new Schema(
         date_of_birth: {type: Date, required: true},
         gender: {type: String, enum: ['Male','Female']},
         handicap: {Type: Boolean, default: false},
-        profession: {Type: String, maxlength: 100},
+        profession: {type: String, maxlength: 50},
         email: {type: String, required: true, maxlength: 50},
         password: {type: String, required: true, minlength: 8, maxlength: 30},
         username: {type: String, required: true, minlength: 3, maxlength: 30},
