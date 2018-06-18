@@ -11,12 +11,15 @@ var User = require('../models/user');
 // };
 
 // Display user create form on GET.
-exports.user_create_get = function(req, res) {
-    res.render('/signup');
+exports.user_create_get = function (request, response) {
+    console.log("GET request for the sign up page");
+    response.render('signup.ejs', {
+        title: 'SignUp'
+    });
 };
 
 // Handle user create on POST.
-exports.user_create_post = function(req, res) {
+exports.user_create_post = function (req, res) {
     var item = {
         name: req.body.name,
         date_of_birth: req.body.date_of_birth,
@@ -28,12 +31,12 @@ exports.user_create_post = function(req, res) {
         username: req.body.username,
         interests: req.body.interests,
         events: req.body.events
-      };  
-       
-      var data = new User(item);  
-      data.save();  
-       
-      res.redirect('/');
+    };
+
+    var data = new User(item);
+    data.save();
+
+    res.redirect('/');
 };
 
 // Display user delete form on GET.
