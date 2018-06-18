@@ -1,8 +1,11 @@
 // Comportamento da página de signup
 
 (function () {
-    document.getElementById('button-finish_signup').addEventListener('click', function () {
+    console.log('Script carregado.')
 
+    document.getElementById('button-finish-signup').addEventListener('click', function () {
+        
+        // TODO VERIFICAR ENTRADAS
         var pass = document.getElementById('password').textContent;
         var rePass = document.getElementById('re-password').textContent;
 
@@ -16,11 +19,9 @@
                 password: pass,
                 email: document.getElementById('email').textContent
             }
+            post('/signup/create', user, 'post');
         }
 
-        post('/signup/create', user, 'post');
-
-        // TODO VERIFICAR ENTRADAS
         // TODO limpar dados
     })
 
@@ -42,8 +43,7 @@
             }
         }
 
-        document.body.appendChild(form);
+        document.body.appendChild(form); // Isso é necessário?
         form.submit();
     }
-})
-
+})();
