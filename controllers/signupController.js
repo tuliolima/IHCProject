@@ -25,7 +25,13 @@ exports.user_create_post = function (req, res) {
     };
 
     var data = new User(item);
-    data.save();
+    data.save(function(error) {
+        if(error){
+            console.log('Usuário não cadastrado: %s', error.message);
+        }else{
+            console.log('Usuário cadastrado com sucesso');
+        }
+    });
 
     res.redirect('/');
 };
