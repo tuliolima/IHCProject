@@ -29,6 +29,6 @@ router.get('/login', function (request, response, next) {
 router.get('/signup', users_controller.user_create_get);
 
 // POST request for creating user.
-router.post('/user/create', users_controller.user_create_post);
+router.post('/signup/create', users_controller.user_create_post);
 
 module.exports = router;

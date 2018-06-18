@@ -20,6 +20,7 @@ exports.user_create_get = function (request, response) {
 
 // Handle user create on POST.
 exports.user_create_post = function (req, res) {
+    console.log("POST request for the sign up page");
     var item = {
         name: req.body.name,
         date_of_birth: req.body.date_of_birth,

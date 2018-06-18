@@ -5,10 +5,7 @@ const ObjectId = Schema.Types.ObjectId;
 
 var UserSchema = new Schema(
     {
-        name:{
-            first: {type: String, required: true, maxlength: 100},
-            last: {type: String, required: true, maxlength: 100}
-        },
+        name:{type: String, required: true, maxlength: 100},
         date_of_birth: {type: Date, required: true},
         gender: {type: String, enum: ['Male','Female']},
         handicap: {Type: Boolean, default: false},
