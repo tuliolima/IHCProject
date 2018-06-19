@@ -73,24 +73,15 @@
 
     function updateNews() {
         // TODO pegar pelos interesses do usuário
-        var newsResult = getNews('sports', 5);
-        console.log(newsResult[0]);
-        createNews(newsResult[0].title, newsResult[0].description, newsResult[0].urlToImage, newsResult[0].url)
-        newsResult(element => {
-            createNews(element.title, element.description, element.urlToImage, element.url)
-        });
+        getNews('sports', 5);
     }
 
-    function createNews(title, description, imgUrl, url) {
-        var news = app.newsTemplate.cloneNode(true);
-        news.querySelector('.mdl-card__media').querySelector('h3').textContent = title;
-        news.querySelector('.mdl-card__supporting-text').textContent = description;
-        news.style.backgroundImage = "url('" + imgUrl + "')";
-        // TODO Setar o link da notícia
-        news.classList.remove('news-template');
-        news.removeAttribute('hidden');
-        app.newsList.appendChild(news);
-        app.news[app.news.length] = news;
+    function createNode(element) {
+        return document.createElement(element);
+    }
+
+    function append(parent, el) {
+        return parent.appendChild(el);
     }
 
     function getNews(wantedCategory, wantedPageSize, wantedType = 'top-headlines', wantedCountry = 'br') {
@@ -102,24 +93,41 @@
         const apiKey = 'apiKey=0a1731b051fd452d8b4b8c70b422f295';
 
         const url = uri + type + country + category + pageSize + apiKey
-
+        const ul = document.getElementById('noticias');
         //var req = new Request(url);
 
         fetch(url)
             .then((resp) => resp.json())
             .then(function (data) {
-                console.log(data);
-                console.log(data.articles);
-                app.articles = data.articles;
+
+                articles = data.articles;
+
+                return articles.map(function(article) {
+                    let div = createNode('div');
+                    if(article.urlToImage != null & article.description != null){
+                    div.innerHTML = 
+                        `<a target="_blank" href="${article.url}" style="text-decoration: none;">
+                        <div class="mdl-card news-template news-card mdl-cell mdl-cell--12-col" style="height:400px;">
+                            <div class="mdl-card__media mdl-color-text--grey-50" style="background-image: url('${article.urlToImage}'); width=500px;">
+                            </div>
+                            <br>
+                            <b style="text-align:center; text-transform: uppercase;">${article.title}</b>
+                            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                ${article.description}
+                            </div>
+                        </div></a>`
+                    }
+                    append(ul, div);
+                })
+
             })
             .catch(function (error) {
                 console.log(JSON.stringify(error));
             })
-
-        return app.articles;
     };
 
     // Code starts here:
     updateEvents();
     updateNews();
 })();
+
