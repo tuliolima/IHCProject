@@ -8,9 +8,8 @@
         eventTemplate: document.querySelector('.event-template'),
         newsTemplate: document.querySelector('.news-template'),
         eventsList: document.querySelector('.events-list'),
-        newsList: document.querySelector('news-list'),
+        newsList: document.querySelector('.news-list'),
         addEventDialog: document.getElementById('addEventDialog'),
-        articles: []
     };
 
     document.getElementById('button-cancel-event').addEventListener('click', function () {
@@ -90,24 +89,20 @@
 
     function updateNews() {
         // TODO pegar pelos interesses do usuário
-        var newsResult = getNews('sports', 5);
-        console.log(newsResult[0]);
-        createNews(newsResult[0].title, newsResult[0].description, newsResult[0].urlToImage, newsResult[0].url)
-        newsResult(element => {
-            createNews(element.title, element.description, element.urlToImage, element.url)
-        });
+        getNews('sports', 5);
     }
 
     function createNews(title, description, imgUrl, url) {
+        console.log("Criando Notícia");
         var news = app.newsTemplate.cloneNode(true);
-        news.querySelector('.mdl-card__media').querySelector('h3').textContent = title;
-        news.querySelector('.mdl-card__supporting-text').textContent = description;
-        news.style.backgroundImage = "url('" + imgUrl + "')";
+        news.querySelector('.mdl-card__supporting-text').textContent = title;
+        news.querySelector('.mdl-card__media').style.backgroundImage = "url('" + imgUrl + "')";
         // TODO Setar o link da notícia
         news.classList.remove('news-template');
         news.removeAttribute('hidden');
         app.newsList.appendChild(news);
         app.news[app.news.length] = news;
+        console.log("Notícia criada");
     }
 
     function getNews(wantedCategory, wantedPageSize, wantedType = 'top-headlines', wantedCountry = 'br') {
@@ -120,20 +115,21 @@
 
         const url = uri + type + country + category + pageSize + apiKey
 
-        //var req = new Request(url);
-
         fetch(url)
             .then((resp) => resp.json())
             .then(function (data) {
-                console.log(data);
                 console.log(data.articles);
-                app.articles = data.articles;
+                articles = data.articles;
+                return articles.map(function (article) {
+                    if (article.urlToImage != null & article.description != null) {
+                        console.log(article);
+                        createNews(article.title, article.description, article.urlToImage, article.url);
+                    }
+                });
             })
             .catch(function (error) {
                 console.log(JSON.stringify(error));
             })
-
-        return app.articles;
     };
 
     // Code starts here:

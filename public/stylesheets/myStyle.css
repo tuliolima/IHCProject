@@ -36,7 +36,7 @@
 }
 
 .news-card .mdl-card__media {
-    background-image: url("https://picsum.photos/300/200/?random");
+    /*background-image: url("https://picsum.photos/300/200/?random");*/
     box-sizing: border-box;
     background-size: cover;
     padding: 24px;
