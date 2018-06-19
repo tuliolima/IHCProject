@@ -19,10 +19,27 @@
     })
 
     document.getElementById('button-confirm-event').addEventListener('click', function () {
-        // TODO pegar dados
-        var title = "Prova de Cálculo 1"
-        createEvent(title, '', '', '', 1);
-        addEventDialog.close();
+        // TODO VERIFICAR ENTRADAS, data + tempo já passaram(?)
+        var eventName = document.getElementById('newEventName').value;
+        var eventDate = document.getElementById('newEventDate').value;
+        var eventTime = document.getElementById('newEventTime').value;
+        var eventDescription = document.getElementById('newEventDescription').value;
+        var eventPlace = document.getElementById('newEventPlace').value;
+        var eventCategory = document.getElementById('newEventCategory').value;
+
+        console.log("CRIANDO EVENTO");
+        var event = {
+            title: document.getElementById('newEventName').value,
+            description: document.getElementById('newEventDescription').value,
+            place: document.getElementById('newEventPlace').value,
+            date: document.getElementById('newEventDate').value,
+            time: document.getElementById('newEventTime').value,
+            type: document.getElementById('newEventCategory').value
+        }
+
+        createEvent(event.title, event.description, event.place, event.date, event.type);
+
+        // post('/new/event', event, 'post');
     })
 
     document.getElementById('button-add-event').addEventListener('click', function () {

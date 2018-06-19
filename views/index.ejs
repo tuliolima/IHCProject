@@ -122,15 +122,37 @@
         <dialog class="mdl-dialog" id="addEventDialog">
             <h4 class="mdl-dialog__title">Novo Evento</h4>
             <div class="mdl-dialog__content">
-                <p>
-                    Dados do evento.
-                </p>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="newEventName">
+                    <label class="mdl-textfield__label" for="newEventName">Nome do Evento</label>
+                </div>
+                <div class="mdl-textfield mdl-js-datefield">
+                    <input class="mdl-textfield__input" type="date" id="newEventDate">
+                    <label class="mdl-textfield__label" for="newEventDate"></label>
+                </div>
+                <div class="mdl-textfield mdl-js-timefield">
+                    <input class="mdl-textfield__input" type="time" id="newEventTime">
+                    <label class="mdl-textfield__label" for="newEventTime"></label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="newEventPlace">
+                    <label class="mdl-textfield__label" for="newEventPlace">Lugar</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="newEventDescription">
+                    <label class="mdl-textfield__label" for="newEventDescription">Descrição</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="newEventCategory">
+                    <label class="mdl-textfield__label" for="newEventCategory">Categoria</label>
+                </div>
             </div>
             <div class="mdl-dialog__actions">
                 <button type="button" class="mdl-button" id="button-confirm-event">OK</button>
                 <button type="button" class="mdl-button close" id="button-cancel-event">Cancelar</button>
             </div>
-        </dialog>
+    </div>
+    </dialog>
     </div>
 
     <!-- Insert link to app.js here -->
