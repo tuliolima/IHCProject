@@ -1,49 +1,42 @@
 // Comportamento da página de signup
-
 (function () {
-    console.log('Script carregado.')
 
     document.getElementById('button-finish-signup').addEventListener('click', function () {
-        
-        // TODO VERIFICAR ENTRADAS
-        var pass = document.getElementById('password').textContent;
-        var rePass = document.getElementById('re-password').textContent;
+        var XHR = new XMLHttpRequest();
+
+        var pass = document.getElementById('password').value;
+        var rePass = document.getElementById('re-password').value;
 
         if (pass != rePass) {
             console.log("SENHAS ERRADAS");
         } else {
             console.log("CRIANDO USUARIO");
             var user = {
-                name: document.getElementById('name').textContent,
-                username: document.getElementById('user').textContent,
+                name: document.getElementById('name').value,
+                username: document.getElementById('user').value,
                 password: pass,
-                email: document.getElementById('email').textContent
+                email: document.getElementById('email').value
             }
-            post('/signup/create', user, 'post');
+            console.log(user);
         }
+       
+        var urlEncodedData = "";
+        var urlEncodedDataPairs = [];
+        var field;
+      
+        // Turn the data object into an array of URL-encoded key/value pairs.
+        for(field in user) {
+          urlEncodedDataPairs.push(encodeURIComponent(field) + '=' + encodeURIComponent(user[field]));
+        }
+      
+        // Combine the pairs into a single string and replace all %-encoded spaces to 
+        // the '+' character; matches the behaviour of browser form submissions.
+        urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
 
-        // TODO limpar dados
+        //Send our request
+        XHR.open('POST', '/signup/create');
+        XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        XHR.send(urlEncodedData);
     })
 
-    function post(path, params, method) {
-        method = method || "post"; // Set method to post by default if not specified.
-
-        var form = document.createElement("form");
-        form.setAttribute("method", method);
-        form.setAttribute("action", path);
-
-        for (var key in params) {
-            if (params.hasOwnProperty(key)) {
-                var hiddenField = document.createElement("input");
-                hiddenField.setAttribute("type", "hidden");
-                hiddenField.setAttribute("name", key);
-                hiddenField.setAttribute("value", params[key]);
-
-                form.appendChild(hiddenField);
-            }
-        }
-
-        document.body.appendChild(form); // Isso é necessário?
-        form.submit();
-    }
 })();

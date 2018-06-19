@@ -14,6 +14,7 @@ var indexRouter = require("./routes/indexRouter");
 
 //Our app variable using express module
 var app = express();
+app.use(bodyParser());
 
 //Setting app uses
 //app.use(expressValidator());
