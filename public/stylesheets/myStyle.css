@@ -3,6 +3,10 @@
 
 @charset "UTF-8";
 
+html, body {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
 .app-content {
     background: #e8e8e8;
 }

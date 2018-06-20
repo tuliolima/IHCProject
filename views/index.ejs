@@ -6,6 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Agenda</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/logo.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/roboto-font.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/material.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/myStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -35,24 +47,30 @@
                 <!-- Conteúdo do site -->
                 <div class="mdl-grid app-grid">
                     <div class="mdl-card events-title mdl-cell mdl-cell--12-col mdl-shadow--4dp">
-                        <span>Eventos</span>
+                        <div class="mdl-typography--title">
+                            Lembretes
+                        </div>
                         <div class="mdl-layout-spacer"></div>
                         <button class="mdl-button mdl-js-button mdl-button--accent" id="button-add-event">
-                            <i class="material-icons">add</i>
+                            <i class="material-icons" style="font-size: 30px">add</i>
                         </button>
                     </div>
                     <!-- Lista de eventos -->
                     <div class="events-list mdl-cell mdl-cell--12-col mdl-grid">
                         <!-- Event Template -->
-                        <div class="mdl-card event-template event-card mdl-cell mdl-cell--12-col" hidden>
-                            <div class="title"></div>
-                            <div class="description"></div>
-                            <div class="place"></div>
+                        <div class="mdl-card event-template event-card mdl-cell mdl-cell--12-col mdl-color-text--white" hidden>
+                            <div>
+                                <div class="title mdl-typography--font-medium"></div>
+                                <div class="time"></div>
+                            </div>
+                            <div class="mdl-layout-spacer"></div>
                             <div class="date"></div>
                         </div>
                     </div>
                     <div class="mdl-card news-title mdl-cell mdl-cell--12-col mdl-shadow--4dp">
-                        <span>Notícias</span>
+                        <div class="mdl-typography--title">
+                            Notícias
+                        </div>
                         <div class="mdl-layout-spacer"></div>
                         <button class="mdl-button mdl-js-button mdl-button--accent" id="button-">
                             <i class="material-icons">settings</i>
@@ -73,35 +91,40 @@
             </div>
         </main>
         <dialog class="mdl-dialog" id="addEventDialog">
-            <h4 class="mdl-dialog__title">Novo Evento</h4>
+            <h4 class="mdl-dialog__title">Novo lembrete</h4>
             <div class="mdl-dialog__content">
-                <div class="mdl-textfield mdl-js-textfield">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="newEventName">
-                    <label class="mdl-textfield__label" for="newEventName">Nome do Evento</label>
+                    <label class="mdl-textfield__label" for="newEventName">Título</label>
                 </div>
-                <div class="mdl-textfield mdl-js-datefield">
-                    <input class="mdl-textfield__input" type="date" id="newEventDate">
-                    <label class="mdl-textfield__label" for="newEventDate"></label>
-                </div>
-                <div class="mdl-textfield mdl-js-timefield">
-                    <input class="mdl-textfield__input" type="time" id="newEventTime">
-                    <label class="mdl-textfield__label" for="newEventTime"></label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="newEventPlace">
-                    <label class="mdl-textfield__label" for="newEventPlace">Lugar</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="newEventDescription">
                     <label class="mdl-textfield__label" for="newEventDescription">Descrição</label>
                 </div>
-                <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="newEventCategory">
-                    <label class="mdl-textfield__label" for="newEventCategory">Categoria</label>
+                <div class="mdl-textfield mdl-js-datefield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="date" id="newEventDate">
+                    <label class="mdl-textfield__label" for="newEventDate"></label>
+                </div>
+                <div class="mdl-textfield mdl-js-timefield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="time" id="newEventTime">
+                    <label class="mdl-textfield__label" for="newEventTime"></label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="newEventPlace">
+                    <label class="mdl-textfield__label" for="newEventPlace">Lugar</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <select class="mdl-textfield__input" id="newEventColor">
+                        <option value="amarelo">amarelo</option>
+                        <option value="vermelho">vermelho</option>
+                        <option value="verde">verde</option>
+                        <option value="azul">azul</option>
+                    </select>
+                    <label class="mdl-textfield__label" for="newEventColor">Cor</label>
                 </div>
             </div>
             <div class="mdl-dialog__actions">
-                <button type="button" class="mdl-button" id="button-confirm-event">OK</button>
+                <button type="button" class="mdl-button" id="button-confirm-event">Salvar</button>
                 <button type="button" class="mdl-button close" id="button-cancel-event">Cancelar</button>
             </div>
     </div>
