@@ -10,15 +10,61 @@
         eventsList: document.querySelector('.events-list'),
         newsList: document.querySelector('.news-list'),
         addEventDialog: document.getElementById('addEventDialog'),
+        editEventDialog: document.getElementById('editEventDialog'),
+        editEventID: ''
     };
 
     var colorEnum = {
-        "amarelo" : "rgb(251,192,45)",
-        "vermelho" : "rgb(244,67,54)",
-        "azul" : "rgb(33,150,243)",
-        "verde" : "rgb(76,175,80)" 
+        "amarelo": "rgb(251,192,45)",
+        "vermelho": "rgb(244,67,54)",
+        "azul": "rgb(33,150,243)",
+        "verde": "rgb(76,175,80)"
     }
 
+    var fakeEvents = [
+        {
+            title: 'Prova de IHC',
+            description: 'fdsfasfd',
+            place: 'UnB',
+            date: '2014-03-22',
+            time: '12:00',
+            color: "vermelho",
+            id: generateID()
+        },
+        {
+            title: 'Apresentação de trabalho',
+            description: '',
+            place: 'Universidade de Brasília',
+            date: '2015-03-18',
+            time: '12:00',
+            color: "verde",
+            id: generateID()
+        },
+        {
+            title: 'Prova de IHC',
+            description: 'fdsfasfd',
+            place: 'UnB',
+            date: '2015-03-18',
+            time: '12:00',
+            color: "azul",
+            id: generateID()
+        },
+        {
+            title: 'Apresentação de trabalho',
+            description: '',
+            place: 'Universidade de Brasília',
+            date: '2015-03-18',
+            time: '12:00',
+            color: "amarelo",
+            id: generateID()
+        }
+    ]
+
+    // Main starts here:
+    updateEvents();
+    updateNews();
+
+    // Definição dos listeners
     document.getElementById('button-cancel-event').addEventListener('click', function () {
         addEventDialog.close();
         document.getElementById('newEventName').value = '';
@@ -27,12 +73,13 @@
         document.getElementById('newEventDate').value = '';
         document.getElementById('newEventTime').value = '';
         document.getElementById('newEventColor').value = 'amarelo';
-    })
+    });
 
     document.getElementById('button-confirm-event').addEventListener('click', function () {
         // TODO VERIFICAR ENTRADAS, data + tempo já passaram(?)
 
         console.log("CRIANDO EVENTO");
+        console.log(document.getElementById('newEventDate').value);
         var event = {
             title: document.getElementById('newEventName').value,
             description: document.getElementById('newEventDescription').value,
@@ -52,77 +99,115 @@
         document.getElementById('newEventDate').value = '';
         document.getElementById('newEventTime').value = '';
         document.getElementById('newEventColor').value = 'amarelo';
-    })
+    });
 
     document.getElementById('button-add-event').addEventListener('click', function () {
         // Abre uma dialog de criação de eventos.
-        // Por enquanto a criação está direta.
-        // TODO app.toggleAddDialog(true);
         addEventDialog.showModal();
     });
 
-    var fakeEvents = [
-        {
-            title: 'Prova de IHC',
-            description: 'fdsfasfd',
-            place: 'UnB',
-            date: '28/03/2014',
-            time: '12:00',
-            color: "vermelho"
-        },
-        {
-            title: 'Apresentação de trabalho',
-            description: '',
-            place: 'Universidade de Brasília',
-            date: '28/03/2014',
-            time: '12:00',
-            color: "verde"
-        },
-        {
-            title: 'Prova de IHC',
-            description: 'fdsfasfd',
-            place: 'UnB',
-            date: '28/03/2014',
-            time: '12:00',
-            color: "azul"
-        },
-        {
-            title: 'Apresentação de trabalho',
-            description: '',
-            place: 'Universidade de Brasília',
-            date: '28/03/2014',
-            time: '12:00',
-            color: "amarelo"
-        }
-    ]
+    // Listener para editar um evento ao clicar nele
+    document.querySelectorAll('.event-card').forEach(element => {
+        element.addEventListener('click', function () {
+            console.log('Clicou no card ' + element.id);
+            app.editEventID = element.id;
+            event = app.events[element.id];
+            document.getElementById('eventName').parentElement.MaterialTextfield.change(event.title);
+            document.getElementById('eventDescription').parentElement.MaterialTextfield.change(event.description);
+            document.getElementById('eventPlace').parentElement.MaterialTextfield.change(event.place);
+            document.getElementById('eventDate').value = event.date;
+            document.getElementById('eventTime').value = event.time;
+            document.getElementById('eventColor').parentElement.MaterialTextfield.change(event.color);
+            editEventDialog.showModal();
+        })
+    });
 
+    document.getElementById('button-cancel-editEvent').addEventListener('click', function () {
+        editEventDialog.close();
+        document.getElementById('eventName').value = '';
+        document.getElementById('eventDescription').value = '';
+        document.getElementById('eventPlace').value = '';
+        document.getElementById('eventDate').value = '';
+        document.getElementById('eventTime').value = '';
+        document.getElementById('eventColor').value = 'amarelo';
+        app.editEventID = '';
+    });
+
+    document.getElementById('button-confirm-editEvent').addEventListener('click', function () {
+
+        // TODO Atualizar o evento no servidor
+        // TODO Atualizar o evento no vetor
+        // id do evento : app.editEventID
+        let event = {
+            title: document.getElementById('eventName').value,
+            description: document.getElementById('eventDescription').value,
+            place: document.getElementById('eventPlace').value,
+            date: document.getElementById('eventDate').value,
+            time: document.getElementById('eventTime').value,
+            color: document.getElementById('eventColor').value,
+            id: app.editEventID
+        };
+
+        app.events[event.id] = event;
+
+        console.log(app.editEventID);
+        editEventCard(event.title,
+            event.date,
+            event.time,
+            event.color,
+            event.id
+        );
+
+        editEventDialog.close();
+        document.getElementById('eventName').value = '';
+        document.getElementById('eventDescription').value = '';
+        document.getElementById('eventPlace').value = '';
+        document.getElementById('eventDate').value = '';
+        document.getElementById('eventTime').value = '';
+        document.getElementById('eventColor').value = 'amarelo';
+        app.editEventID = '';
+    });
+
+    // Functions
     function updateEvents() {
         // Baixar os eventos do usuário do servidor
         // e atualizar na página.
-        // TODO acessar o servidor
+        // TODO acessar o servidor e atualizar o vetor local
         app.events = [];
         fakeEvents.forEach(element => {
-            createEventCard(element.title, element.date, element.time, element.color);
-            app.events.push(element);
+            createEventCard(element.title, element.date, element.time, element.color, element.id);
+            app.events[element.id] = element;
+            console.log(element.id);
         });
-        console.log(app.events);
+        //console.log(app.events);
     }
 
-    function createEventCard(title, date, time, color) {
+    function createEventCard(title, date, time, color, id) {
         var event = app.eventTemplate.cloneNode(true);
+        event.id = id;
         event.querySelector('.title').textContent = title;
         event.querySelector('.date').textContent = date;
         event.querySelector('.time').textContent = time;
         event.style.backgroundColor = colorEnum[color];
-        // TODO Change event color
         event.classList.remove('event-template');
         event.removeAttribute('hidden');
         app.eventsList.appendChild(event);
     }
 
+    function editEventCard(title, date, time, color, id) {
+        console.log(id);
+        var event = document.getElementById(''+id);
+        event.id = id;
+        event.querySelector('.title').textContent = title;
+        event.querySelector('.date').textContent = date;
+        event.querySelector('.time').textContent = time;
+        event.style.backgroundColor = colorEnum[color];
+    }
+
     function updateNews() {
         // TODO pegar pelos interesses do usuário
-        getNews('sports', 5);
+        getNews('sports', 15);
+        getNews('entertainment', 15);
     }
 
     function createNews(title, description, imgUrl, url) {
@@ -130,7 +215,7 @@
         var news = app.newsTemplate.cloneNode(true);
         news.querySelector('.mdl-card__supporting-text').textContent = title;
         news.querySelector('.mdl-card__media').style.backgroundImage = "url('" + imgUrl + "')";
-        // TODO Setar o link da notícia
+        news.querySelector('a').attr('href') = url;
         news.classList.remove('news-template');
         news.removeAttribute('hidden');
         app.newsList.appendChild(news);
@@ -148,13 +233,15 @@
 
         const url = uri + type + country + category + pageSize + apiKey
 
+        var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
         fetch(url)
             .then((resp) => resp.json())
             .then(function (data) {
                 //console.log(data.articles);
                 articles = data.articles;
                 return articles.map(function (article) {
-                    if (article.urlToImage != null & article.description != null) {
+                    if (article.urlToImage != null) {
                         //console.log(article);
                         createNews(article.title, article.description, article.urlToImage, article.url);
                     }
@@ -165,7 +252,10 @@
             })
     };
 
-    // Code starts here:
-    updateEvents();
-    updateNews();
+    function generateID() {
+        // Math.random should be unique because of its seeding algorithm.
+        // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+        // after the decimal.
+        return '_' + Math.random().toString(36).substr(2, 9);
+    };
 })();

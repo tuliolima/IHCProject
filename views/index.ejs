@@ -46,19 +46,20 @@
             <div class="panel-content app-content">
                 <!-- Conteúdo do site -->
                 <div class="mdl-grid app-grid">
+                    <!-- Título dos lembretes -->
                     <div class="mdl-card events-title mdl-cell mdl-cell--12-col mdl-shadow--4dp">
                         <div class="mdl-typography--title">
                             Lembretes
                         </div>
                         <div class="mdl-layout-spacer"></div>
-                        <button class="mdl-button mdl-js-button mdl-button--accent" id="button-add-event">
+                        <button class="mdl-button mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="button-add-event">
                             <i class="material-icons" style="font-size: 30px">add</i>
                         </button>
                     </div>
-                    <!-- Lista de eventos -->
+                    <!-- Lista de lembretes -->
                     <div class="events-list mdl-cell mdl-cell--12-col mdl-grid">
                         <!-- Event Template -->
-                        <div class="mdl-card event-template event-card mdl-cell mdl-cell--12-col mdl-color-text--white" hidden>
+                        <div class="mdl-card event-template event-card mdl-cell mdl-cell--12-col mdl-color-text--white" hidden id="event">
                             <div>
                                 <div class="title mdl-typography--font-medium"></div>
                                 <div class="time"></div>
@@ -67,12 +68,13 @@
                             <div class="date"></div>
                         </div>
                     </div>
+                    <!-- Título das notícias -->
                     <div class="mdl-card news-title mdl-cell mdl-cell--12-col mdl-shadow--4dp">
                         <div class="mdl-typography--title">
                             Notícias
                         </div>
                         <div class="mdl-layout-spacer"></div>
-                        <button class="mdl-button mdl-js-button mdl-button--accent" id="button-">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="button-">
                             <i class="material-icons">settings</i>
                         </button>
                     </div>
@@ -85,11 +87,14 @@
                                 Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur
                                 ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
                             </div>
+                            <a href="" hidden></a>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
+
+        <!-- Dialog para novo Evento-->
         <dialog class="mdl-dialog" id="addEventDialog">
             <h4 class="mdl-dialog__title">Novo lembrete</h4>
             <div class="mdl-dialog__content">
@@ -124,11 +129,91 @@
                 </div>
             </div>
             <div class="mdl-dialog__actions">
-                <button type="button" class="mdl-button" id="button-confirm-event">Salvar</button>
-                <button type="button" class="mdl-button close" id="button-cancel-event">Cancelar</button>
+                <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="button-confirm-event">Salvar</button>
+                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect" id="button-cancel-event">Cancelar</button>
             </div>
-    </div>
-    </dialog>
+        </dialog>
+
+        <!-- Dialog para editar Evento-->
+        <dialog class="mdl-dialog" id="editEventDialog">
+            <h4 class="mdl-dialog__title">Lembrete</h4>
+            <div class="mdl-dialog__content">
+                <div id="editEventID" hidden></div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="eventName">
+                    <label class="mdl-textfield__label" for="newEventName">Título</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="eventDescription">
+                    <label class="mdl-textfield__label" for="newEventDescription">Descrição</label>
+                </div>
+                <div class="mdl-textfield mdl-js-datefield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="date" id="eventDate">
+                    <label class="mdl-textfield__label" for="newEventDate"></label>
+                </div>
+                <div class="mdl-textfield mdl-js-timefield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="time" id="eventTime">
+                    <label class="mdl-textfield__label" for="newEventTime"></label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="eventPlace">
+                    <label class="mdl-textfield__label" for="newEventPlace">Lugar</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <select class="mdl-textfield__input" id="eventColor">
+                        <option value="amarelo">amarelo</option>
+                        <option value="vermelho">vermelho</option>
+                        <option value="verde">verde</option>
+                        <option value="azul">azul</option>
+                    </select>
+                    <label class="mdl-textfield__label" for="eventColor">Cor</label>
+                </div>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button" id="button-confirm-editEvent">Salvar</button>
+                <button type="button" class="mdl-button close" id="button-cancel-editEvent">Cancelar</button>
+            </div>
+        </dialog>
+        
+        <!-- Dialog para editar Perfil-->
+        <dialog class="mdl-dialog" id="editPerfilDialog">
+            <h4 class="mdl-dialog__title">Novo lembrete</h4>
+            <div class="mdl-dialog__content">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="newEventName">
+                    <label class="mdl-textfield__label" for="newEventName">Título</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="newEventDescription">
+                    <label class="mdl-textfield__label" for="newEventDescription">Descrição</label>
+                </div>
+                <div class="mdl-textfield mdl-js-datefield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="date" id="newEventDate">
+                    <label class="mdl-textfield__label" for="newEventDate"></label>
+                </div>
+                <div class="mdl-textfield mdl-js-timefield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="time" id="newEventTime">
+                    <label class="mdl-textfield__label" for="newEventTime"></label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="newEventPlace">
+                    <label class="mdl-textfield__label" for="newEventPlace">Lugar</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <select class="mdl-textfield__input" id="newEventColor">
+                        <option value="amarelo">amarelo</option>
+                        <option value="vermelho">vermelho</option>
+                        <option value="verde">verde</option>
+                        <option value="azul">azul</option>
+                    </select>
+                    <label class="mdl-textfield__label" for="newEventColor">Cor</label>
+                </div>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button" id="button-confirm-editPerfil">Salvar</button>
+                <button type="button" class="mdl-button close" id="button-cancel-editPerfil">Cancelar</button>
+            </div>
+        </dialog>
     </div>
 
     <!-- Insert link to app.js here -->
