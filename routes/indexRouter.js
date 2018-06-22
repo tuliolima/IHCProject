@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
+var home_controller = require('../controllers/index');
 var users_controller = require('../controllers/signupController');
 var login_controller = require('../controllers/loginController');
 var scheduler_controller = require('../controllers/schedulerController');
@@ -8,12 +9,7 @@ var scheduler_controller = require('../controllers/schedulerController');
 // Home router
 
 //Route to home page
-router.get('/', function (request, response, next) {
-    console.log("GET request for the home page");
-    response.render('index.ejs', {
-        title: 'Home'
-    });
-});
+router.get('/', home_controller.home_page_get);
 
 // ----- LOGIN ROUTER -----
 //Route to login page
