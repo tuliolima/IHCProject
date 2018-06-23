@@ -4,12 +4,15 @@ var router = express.Router();
 var home_controller = require('../controllers/index');
 var users_controller = require('../controllers/signupController');
 var login_controller = require('../controllers/loginController');
-var scheduler_controller = require('../controllers/schedulerController');
+//var scheduler_controller = require('../controllers/schedulerController');
 
 // Home router
 
 //Route to home page
 router.get('/', home_controller.home_page_get);
+
+//Event routers: create event
+router.post('/event/create', home_controller.home_page_event_post);
 
 // ----- LOGIN ROUTER -----
 //Route to login page
