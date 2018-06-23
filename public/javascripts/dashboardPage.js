@@ -206,8 +206,9 @@
 
     function updateNews() {
         // TODO pegar pelos interesses do usuário
-        getNews('sports', 15);
-        getNews('entertainment', 15);
+        //getNews('sports', 15);
+        //getNews('entertainment', 15);
+        getNews(wantedCategory='business',wantedPageSize = 20);
     }
 
     function createNews(title, description, imgUrl, url) {
@@ -215,7 +216,7 @@
         var news = app.newsTemplate.cloneNode(true);
         news.querySelector('.mdl-card__supporting-text').textContent = title;
         news.querySelector('.mdl-card__media').style.backgroundImage = "url('" + imgUrl + "')";
-        news.querySelector('a').attr('href') = url;
+        //news.querySelector('a').attr('href') = url;
         news.classList.remove('news-template');
         news.removeAttribute('hidden');
         app.newsList.appendChild(news);
@@ -242,7 +243,7 @@
                 articles = data.articles;
                 return articles.map(function (article) {
                     if (article.urlToImage != null) {
-                        //console.log(article);
+                        console.log(article);
                         createNews(article.title, article.description, article.urlToImage, article.url);
                     }
                 });
