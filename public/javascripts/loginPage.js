@@ -3,6 +3,7 @@
 
     document.getElementById('button-login').addEventListener('click', function () {
 
+        console.log("cheguei");
         // TODO fazer verificação de entrada
         var login = {
             username: document.getElementById('username').value,
@@ -37,7 +38,7 @@
 
         //Send our request
         XHR.open('POST', url);
-        XHR.responseType = 'json';
+        //XHR.responseType = 'json';
         XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         XHR.send(urlEncodedData);
 
