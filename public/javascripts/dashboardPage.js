@@ -175,7 +175,9 @@
 
     document.getElementById('button-interests').addEventListener('click', function () {
         // Abre uma dialog de interesses.
-        // TODO atualizar checkbox de interesses.
+        app.interests.forEach(element => {
+            document.getElementById(element + '-checkbox').parentElement.MaterialCheckbox.check();
+        });
         interestsDialog.showModal();
     });
 

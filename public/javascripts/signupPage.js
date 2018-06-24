@@ -20,7 +20,14 @@
         }
 
         post('/signup/create', user, function(XHR) {
-            // TODO tratar a resposta
+            console.log(xhr.status);
+            if (xhr.status == 500) {
+                var data = { message: 'O cadastro falhou.' };
+                loginFailToast.MaterialSnackbar.showSnackbar(data);
+            }
+            if (xhr.status == 200) {
+                window.location.replace("/");
+            }
         })
     })
 
