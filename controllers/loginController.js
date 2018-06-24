@@ -36,7 +36,7 @@ exports.login_post = function (request, response) {
             } else {
                 request.session.user = user;
                 console.log("Logged in");
-                return response.status(200).send();
+                response.status(200).send();
             }
         });
     }
