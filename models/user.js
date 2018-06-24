@@ -14,7 +14,7 @@ var UserSchema = new Schema(
         password: {type: String, required: true, minlength: 8, maxlength: 30},
         username: {type: String, required: true, minlength: 3, maxlength: 30},
         // interests: [{type: String, enum:['Sports','Technology','Videogames','Nature','Travel','Economy','Healthcare','Security','Gossip','Gastronomy','Relationships','Movies','Music','Religion','History','Party','Education','Politics','Art','None']}],
-        // events: [{type: ObjectId, ref: 'Event'}]
+        events: [{type: ObjectId, ref: 'Event'}]
     }
   );
 
