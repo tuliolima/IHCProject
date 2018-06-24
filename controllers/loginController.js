@@ -12,37 +12,35 @@ exports.login_get = function (request, response) {
 exports.login_post = function (request, response) {
     console.log("POST request for the login page");
 
-    userObject = User.where({username : request.body.username});
-    
-    userObject.findOne(function (err, userObject) {
-        if (err){
-            console.log("Erro ao encontrar usuario no banco");
-            return handleError(err);
-        }
-        console.log(userObject.email);
-        //return response.status(200).send(userObject);
+    var username = request.body.username;
+    var password = request.body.password;
 
-        if (!userObject) {
-            console.log("Usuario inexistente no banco");
-            response.redirect('/login');
-        } else if (!userObject.validPassword(request.body.password)) {
-            console.log("Senha invalida");
-            response.redirect('/login');
-        } else {
-            request.session.user = userObject.dataValues;
-            response.redirect('/');
+    User.findOne({username: username},function(err,user){
+        if(err){
+            console.log("Erro ao encontrar usuario no banco");
+            return response.status(500).send();
         }
-        
+
+        if(!user){
+            console.log("Usuario inexistente no banco");
+            return response.status(401).send();
+        } else if (!user.validPassword(request.body.password)) {
+            console.log("Senha invalida");
+            return response.status(401).send();
+        } else {
+            request.session.user = user;
+            console.log("Logged in");
+            response.redirect('/');
+            return response.status(200).send();
+        }
     });
 
 };
 
 //Handle user logout on GET
 exports.user_logout_get = function(request,response){
-    if (request.session.user && request.cookies.user_id) {
-        response.clearCookie('user_id');
-        response.redirect('/login');
-    } else {
-        response.redirect('/');
-    }
+    request.session.destroy();
+    console.log("Logged out");
+    response.redirect('/login');
+    return response.status(200).send();
 };
