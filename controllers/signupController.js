@@ -34,3 +34,28 @@ exports.user_create_post = function (req, res) {
         });
     }
 };
+
+
+exports.user_update_post = function (req, res) {
+    console.log("POST request for user update");
+    if(req.session.user){
+        res.redirect('/');
+    }else{
+        var id = req.body.id;  
+  
+        Event.findById(id, function(err, doc) {
+            if(err){
+                console.log("Erro ao encontrar usuario no banco");
+                return response.status(500).send();
+            }
+            doc.name = req.body.name,
+            doc.email = req.body.email,
+            doc.password = req.body.password,
+            doc.username = req.body.username,
+            doc.events = req.body.events
+            doc.save();  
+        });
+        console.log("Usuario atualizado");
+        res.status(200).send(); 
+    }
+}

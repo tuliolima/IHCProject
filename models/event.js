@@ -17,6 +17,5 @@ var EventSchema = new Schema(
     }
   );
 
-
 //Export model
 module.exports = mongoose.model('Event', EventSchema);

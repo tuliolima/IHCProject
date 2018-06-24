@@ -38,3 +38,47 @@ exports.home_page_event_post = function(req,res){
     }
 
 };
+
+
+//Event UPDATE POST verb
+exports.home_page_event_update = function(req,res){
+    console.log("POST request for the home page event update dialog box")
+    if(!req.session.user){
+        res.redirect('/login');
+    }else{
+        var id = req.body.id;  
+  
+        Event.findById(id, function(err, doc) {
+            if(err){
+                console.log("Erro ao encontrar evento no banco");
+                return response.status(500).send();
+            }
+            doc.eventId = req.body.id;
+            doc. title = req.body.title;
+            doc.description = req.body.description;
+            doc.place = req.body.place;
+            doc.date = req.body.date;
+            doc.time = req.body.time;
+            doc.color = req.body.color; 
+            doc.save();  
+        });
+        console.log("Evento atualizado");
+        res.status(200).send(); 
+    }
+};
+
+//Event DELETE GET verb
+exports.home_page_event_delete = function(req,res){
+    console.log("POST request for the home page event delete dialog box")
+    if(!req.session.user){
+        res.redirect('/login');
+    }else{
+        var id = req.body.id;
+        Event.findByIdAndRemove(id, function(err, doc) {
+            if(err){
+                console.log("Erro ao encontrar evento no banco");
+                return response.status(500).send();
+            }
+        });
+    }
+};
