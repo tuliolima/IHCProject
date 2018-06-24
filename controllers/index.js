@@ -82,3 +82,29 @@ exports.home_page_event_delete = function(req,res){
         });
     }
 };
+
+//READ AN EVENT
+exports.home_page_event_get = function(req,res){
+    console.log("GET REQUEST for the home page READ event")
+    if(!req.session.user){
+        res.redirect('/login');
+    }else{
+        var id = req.body.id;
+        var title = req.body.title;
+        //OPÇÃO 1 DE FIND: encontrar pelo ID no mongo
+        // Event.findById(id,function(err,ev){
+        //     if(err){
+        //         console.log("Erro ao encontrar evento no banco");
+        //         return response.status(500).send();
+        //     }
+        // });
+        //OPÇÃO 2 DE FIND: encontrar pelo titulo no banco
+        Event.findOne({title: title},function(err,ev){
+            if(err){
+                console.log("Erro ao encontrar evento no banco");
+                return response.status(500).send();
+            }
+        });
+        return response.status(200).send(ev); //retorna o objeto inteiro
+    }
+}
