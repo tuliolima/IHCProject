@@ -74,7 +74,7 @@
                             Notícias
                         </div>
                         <div class="mdl-layout-spacer"></div>
-                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="button-">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="button-interests">
                             <i class="material-icons">settings</i>
                         </button>
                     </div>
@@ -83,10 +83,7 @@
                         <!-- Template de Notícia -->
                         <div class="mdl-card news-template news-card mdl-cell mdl-cell--6-col" hidden>
                             <div class="mdl-card__media"></div>
-                            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                                Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur
-                                ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
-                            </div>
+                            <div class="mdl-card__supporting-text mdl-color-text--grey-600"></div>
                         </div>
                     </div>
                 </div>
@@ -169,48 +166,47 @@
                 </div>
             </div>
             <div class="mdl-dialog__actions">
-                <button type="button" class="mdl-button" id="button-confirm-editEvent">Salvar</button>
-                <button type="button" class="mdl-button close" id="button-cancel-editEvent">Cancelar</button>
+                <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="button-confirm-editEvent">Salvar</button>
+                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect" id="button-cancel-editEvent">Cancelar</button>
             </div>
         </dialog>
-        
-        <!-- Dialog para editar Perfil-->
-        <dialog class="mdl-dialog" id="editPerfilDialog">
-            <h4 class="mdl-dialog__title">Novo lembrete</h4>
+
+        <!-- Dialog para editar os Interesses-->
+        <dialog class="mdl-dialog" id="interestsDialog">
+            <h4 class="mdl-dialog__title">Interesses</h4>
             <div class="mdl-dialog__content">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="newEventName">
-                    <label class="mdl-textfield__label" for="newEventName">Título</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="newEventDescription">
-                    <label class="mdl-textfield__label" for="newEventDescription">Descrição</label>
-                </div>
-                <div class="mdl-textfield mdl-js-datefield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="date" id="newEventDate">
-                    <label class="mdl-textfield__label" for="newEventDate"></label>
-                </div>
-                <div class="mdl-textfield mdl-js-timefield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="time" id="newEventTime">
-                    <label class="mdl-textfield__label" for="newEventTime"></label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="newEventPlace">
-                    <label class="mdl-textfield__label" for="newEventPlace">Lugar</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <select class="mdl-textfield__input" id="newEventColor">
-                        <option value="amarelo">amarelo</option>
-                        <option value="vermelho">vermelho</option>
-                        <option value="verde">verde</option>
-                        <option value="azul">azul</option>
-                    </select>
-                    <label class="mdl-textfield__label" for="newEventColor">Cor</label>
-                </div>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="business-checkbox">
+                    <input type="checkbox" id="business-checkbox" class="mdl-checkbox__input" checked>
+                    <span class="mdl-checkbox__label">Negócios</span>
+                </label>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="entertainment-checkbox">
+                    <input type="checkbox" id="entertainment-checkbox" class="mdl-checkbox__input" checked>
+                    <span class="mdl-checkbox__label">Entertenimento</span>
+                </label>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="general-checkbox">
+                    <input type="checkbox" id="general-checkbox" class="mdl-checkbox__input" checked>
+                    <span class="mdl-checkbox__label">Geral</span>
+                </label>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="health-checkbox">
+                    <input type="checkbox" id="health-checkbox" class="mdl-checkbox__input" checked>
+                    <span class="mdl-checkbox__label">Saúde</span>
+                </label>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="science-checkbox">
+                    <input type="checkbox" id="science-checkbox" class="mdl-checkbox__input" checked>
+                    <span class="mdl-checkbox__label">Ciência</span>
+                </label>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="sports-checkbox">
+                    <input type="checkbox" id="sports-checkbox" class="mdl-checkbox__input" checked>
+                    <span class="mdl-checkbox__label">Esporte</span>
+                </label>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="technology-checkbox">
+                    <input type="checkbox" id="technology-checkbox" class="mdl-checkbox__input" checked>
+                    <span class="mdl-checkbox__label">Tecnologia</span>
+                </label>
             </div>
             <div class="mdl-dialog__actions">
-                <button type="button" class="mdl-button" id="button-confirm-editPerfil">Salvar</button>
-                <button type="button" class="mdl-button close" id="button-cancel-editPerfil">Cancelar</button>
+                <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="button-confirm-interests">Salvar</button>
+                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect" id="button-cancel-interests">Cancelar</button>
             </div>
         </dialog>
     </div>

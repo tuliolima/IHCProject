@@ -12,7 +12,8 @@ exports.home_page_get = function (req, res) {
 exports.home_page_event_post = function(req,res){
     console.log("POST request for the home page event creation dialog box")
     var event = new Event({
-        name: req.body.name,
+        eventId: req.body.id,
+        title: req.body.title,
         description: req.body.description,
         place: req.body.place,
         date: req.body.date,

@@ -5,8 +5,8 @@ const ObjectId = Schema.Types.ObjectId;
 
 var EventSchema = new Schema(
     {
-        id: {type: String}, //também não coloquei nada especifico aqui porque o mongo já cria um ID
-        name:{type: String, required: true, max: 100},
+        eventId: {type: String}, //também não coloquei nada especifico aqui porque o mongo já cria um ID
+        title:{type: String, required: true, max: 100},
         description:{type: String, max:140},
         place: {type: String, max: 100},
         date: {type: Date, required: true}, //DATE ja inclui data e hora... tem que ver como fazer aqui
