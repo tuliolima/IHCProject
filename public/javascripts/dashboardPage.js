@@ -313,7 +313,7 @@
         }
     }
 
-    function post(url, object) {
+    function post(url, object, callback) {
         var XHR = new XMLHttpRequest();
         var urlEncodedData = "";
         var urlEncodedDataPairs = [];
@@ -328,9 +328,16 @@
         // the '+' character; matches the behaviour of browser form submissions.
         urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
 
+        XHR.onreadystatechange = function() {
+            if (XHR.readyState === 4) {
+              callback(XHR.response);
+            }
+          }
+
         //Send our request
         XHR.open('POST', url);
         XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         XHR.send(urlEncodedData);
+
     }
 })();
