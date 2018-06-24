@@ -50,27 +50,10 @@ app.set('views', path.join(__dirname , '/views'));
 //Setting the session
 app.use(cookieParser());
 // initialize express-session to allow us track the logged-in user across sessions.
-app.use(session({
-  key: 'user_id',
-  secret: 'ProjetoFinalAgenda',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-      expires: false
-  }
-}));
+app.use(session({key: 'user_id', secret: 'ProjetoFinalAgenda', resave: false, saveUninitialized: false}));
 
 //Set the used routes
 app.use('/', indexRouter);
-
-// This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
-// This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
-app.use((request, response, next) => {
-  if (request.cookies.user_id && !request.session.user) {
-      response.clearCookie('user_id');        
-  }
-  next();
-});
 
 // ----- ERRORS -----
 //Catch 404 and forward to error handler
