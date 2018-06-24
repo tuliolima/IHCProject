@@ -2,7 +2,6 @@
 (function () {
 
     document.getElementById('button-finish-signup').addEventListener('click', function () {
-        var XHR = new XMLHttpRequest();
 
         var pass = document.getElementById('password').value;
         var rePass = document.getElementById('re-password').value;
@@ -19,24 +18,39 @@
             }
             console.log(user);
         }
-       
+
+        post('/signup/create', user, function(XHR) {
+            // TODO tratar a resposta
+        })
+    })
+
+    function post(url, object, callback) {
+        var XHR = new XMLHttpRequest();
         var urlEncodedData = "";
         var urlEncodedDataPairs = [];
         var field;
-      
+
         // Turn the data object into an array of URL-encoded key/value pairs.
-        for(field in user) {
-          urlEncodedDataPairs.push(encodeURIComponent(field) + '=' + encodeURIComponent(user[field]));
+        for (field in object) {
+            urlEncodedDataPairs.push(encodeURIComponent(field) + '=' + encodeURIComponent(object[field]));
         }
-      
+
         // Combine the pairs into a single string and replace all %-encoded spaces to 
         // the '+' character; matches the behaviour of browser form submissions.
         urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
 
+        XHR.onreadystatechange = function () {
+            if (XHR.readyState === 4) {
+                callback(XHR);
+            }
+        }
+
         //Send our request
-        XHR.open('POST', '/signup/create');
+        XHR.open('POST', url);
+        //XHR.responseType = 'json';
         XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         XHR.send(urlEncodedData);
-    })
+
+    }
 
 })();

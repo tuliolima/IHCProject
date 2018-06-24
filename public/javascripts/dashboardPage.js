@@ -5,7 +5,7 @@
     var app = {
         events: [],
         news: [],
-        interests: [],
+        interests: ['sports', 'business'],
         eventTemplate: document.querySelector('.event-template'),
         newsTemplate: document.querySelector('.news-template'),
         eventsList: document.querySelector('.events-list'),

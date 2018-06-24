@@ -3,7 +3,9 @@
 
     var loginFailToast = document.getElementById('login-fail-toast');
 
-
+    document.getElementById('button-signup').addEventListener('click', function() {
+        window.location.replace("signup");
+    })
 
     document.getElementById('button-login').addEventListener('click', function () {
 
