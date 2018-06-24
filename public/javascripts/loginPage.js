@@ -3,11 +3,10 @@
 
     var loginFailToast = document.getElementById('login-fail-toast');
 
-    
+
 
     document.getElementById('button-login').addEventListener('click', function () {
 
-        console.log("cheguei");
         // TODO fazer verificação de entrada
         var login = {
             username: document.getElementById('username').value,
@@ -16,8 +15,13 @@
 
         post('/login', login, function (xhr) {
             console.log(xhr.status);
-            var data = {message: 'O login falhou.'};
-            loginFailToast.MaterialSnackbar.showSnackbar(data);
+            if (xhr.status == 401) {
+                var data = { message: 'O login falhou.' };
+                loginFailToast.MaterialSnackbar.showSnackbar(data);
+            }
+            if (xhr.status == 200) {
+                window.location.replace("/");
+            }
         })
     })
 
