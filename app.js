@@ -4,10 +4,9 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var path = require("path");
 var mongoose = require('mongoose');
 var expressValidator = require('express-validator');
-var expressSession = require('express-session');
+var session = require('express-session');
 
 //Set the routes
 var indexRouter = require("./routes/indexRouter");
@@ -15,10 +14,6 @@ var indexRouter = require("./routes/indexRouter");
 //Our app variable using express module
 var app = express();
 app.use(bodyParser());
-
-//Setting app uses
-//app.use(expressValidator());
-//app.use(expressSession({saveUninitialized: false, resave: false}));
 
 //Set up default mongoose connection
 var mongoDB = 'mongodb://localhost/webapp';
@@ -52,9 +47,30 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 //Set the views folder for pages (.html and .ejs files)
 app.set('views', path.join(__dirname , '/views'));
+//Setting the session
+app.use(cookieParser());
+// initialize express-session to allow us track the logged-in user across sessions.
+app.use(session({
+  key: 'user_id',
+  secret: 'ProjetoFinalAgenda',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+      expires: false
+  }
+}));
 
 //Set the used routes
 app.use('/', indexRouter);
+
+// This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
+// This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
+app.use((request, response, next) => {
+  if (request.cookies.user_id && !request.session.user) {
+      response.clearCookie('user_id');        
+  }
+  next();
+});
 
 // ----- ERRORS -----
 //Catch 404 and forward to error handler

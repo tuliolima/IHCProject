@@ -18,6 +18,10 @@ var UserSchema = new Schema(
     }
   );
 
+  //Metodo que verifica se a senha fornecida é igual a senha do banco
+UserSchema.methods.validPassword = function( pwd ) {
+    return ( this.password === pwd );
+};
 
 //Export model
 module.exports = mongoose.model('User', UserSchema);

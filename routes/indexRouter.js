@@ -4,7 +4,17 @@ var router = express.Router();
 var home_controller = require('../controllers/index');
 var users_controller = require('../controllers/signupController');
 var login_controller = require('../controllers/loginController');
-//var scheduler_controller = require('../controllers/schedulerController');
+
+
+
+// Middleware function to check for logged-in users
+sessionChecker = function(request, response, next){
+    if (request.session.user && request.cookies.user_id) {
+        response.redirect('/');
+    } else {
+        response.redirect('/login');
+    }
+};
 
 // Home router
 
@@ -25,10 +35,8 @@ router.get('/signup', users_controller.user_create_get);
 // POST request for creating user.
 router.post('/signup/create', users_controller.user_create_post);
 
-// ----- SCHEDULER ROUTER -----
-//router.get('/',scheduler_controller.scheduler_get);
-
-//router.get('/',scheduler_controller.scheduler_post);
-
+// ----- LOGOUT ROUTER -----
+// route for user logout
+router.get('/logout', login_controller.user_logout_get);
 
 module.exports = router;
