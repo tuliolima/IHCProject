@@ -1,6 +1,10 @@
 // Comportamento da página de signup
 (function () {
 
+    var loginFailToast = document.getElementById('login-fail-toast');
+
+    
+
     document.getElementById('button-login').addEventListener('click', function () {
 
         console.log("cheguei");
@@ -10,8 +14,10 @@
             password: document.getElementById('password').value
         }
 
-        post('/login', login, function (response) {
-            console.log(response);
+        post('/login', login, function (xhr) {
+            console.log(xhr.status);
+            var data = {message: 'O login falhou.'};
+            loginFailToast.MaterialSnackbar.showSnackbar(data);
         })
     })
 
@@ -32,7 +38,7 @@
 
         XHR.onreadystatechange = function () {
             if (XHR.readyState === 4) {
-                callback(XHR.response);
+                callback(XHR);
             }
         }
 
