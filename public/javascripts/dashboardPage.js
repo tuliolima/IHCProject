@@ -3,9 +3,11 @@
 (function () {
     console.log('Script carregado.')
     var app = {
+        user: {},
         events: [],
         news: [],
         interests: ['sports', 'business'],
+        helloMessage: document.getElementById('hello-message'),
         eventTemplate: document.querySelector('.event-template'),
         newsTemplate: document.querySelector('.news-template'),
         eventsList: document.querySelector('.events-list'),
@@ -31,7 +33,7 @@
             date: '2014-03-22',
             time: '12:00',
             color: "vermelho",
-            id: generateID()
+            eventId: generateID()
         },
         {
             title: 'Apresentação de trabalho',
@@ -40,7 +42,7 @@
             date: '2015-03-18',
             time: '12:00',
             color: "verde",
-            id: generateID()
+            eventId: generateID()
         },
         {
             title: 'Prova de IHC',
@@ -49,7 +51,7 @@
             date: '2015-03-18',
             time: '12:00',
             color: "azul",
-            id: generateID()
+            eventId: generateID()
         },
         {
             title: 'Apresentação de trabalho',
@@ -58,11 +60,15 @@
             date: '2015-03-18',
             time: '12:00',
             color: "amarelo",
-            id: generateID()
+            eventId: generateID()
         }
     ]
 
     // Main starts here:
+    get("/signup/read", function (XHR) {
+        app.user = XHR.response;
+        app.helloMessage.textContent = "Olá " + app.user.name + "!";
+    });
     updateEvents();
     //TODO atualizar interesses
     updateNews();
@@ -89,12 +95,12 @@
             date: document.getElementById('newEventDate').value,
             time: document.getElementById('newEventTime').value,
             color: document.getElementById('newEventColor').value,
-            id: generateID()
+            eventId: generateID()
         }
 
-        app.events[event.id] = event;
+        app.events[event.eventId] = event;
 
-        createEventCard(event.title, event.date, event.time, event.color, event.id);
+        createEventCard(event.title, event.date, event.time, event.color, event.eventId);
 
         post('/event/create', event);
 
@@ -113,20 +119,20 @@
     });
 
     // Listener para editar um evento ao clicar nele
-    document.querySelectorAll('.event-card').forEach(element => {
-        element.addEventListener('click', function () {
-            console.log('Clicou no card ' + element.id);
-            app.editEventID = element.id;
-            event = app.events[element.id];
-            document.getElementById('eventName').parentElement.MaterialTextfield.change(event.title);
-            document.getElementById('eventDescription').parentElement.MaterialTextfield.change(event.description);
-            document.getElementById('eventPlace').parentElement.MaterialTextfield.change(event.place);
-            document.getElementById('eventDate').value = event.date;
-            document.getElementById('eventTime').value = event.time;
-            document.getElementById('eventColor').parentElement.MaterialTextfield.change(event.color);
-            editEventDialog.showModal();
-        })
-    });
+    // document.querySelectorAll('.event-card').forEach(element => {
+    //     element.addEventListener('click', function () {
+    //         console.log('Clicou no card ' + element.eventId);
+    //         app.editEventID = element.eventId;
+    //         event = app.events[element.eventId];
+    //         document.getElementById('eventName').parentElement.MaterialTextfield.change(event.title);
+    //         document.getElementById('eventDescription').parentElement.MaterialTextfield.change(event.description);
+    //         document.getElementById('eventPlace').parentElement.MaterialTextfield.change(event.place);
+    //         document.getElementById('eventDate').value = event.date;
+    //         document.getElementById('eventTime').value = event.time;
+    //         document.getElementById('eventColor').parentElement.MaterialTextfield.change(event.color);
+    //         editEventDialog.showModal();
+    //     })
+    // });
 
     document.getElementById('button-cancel-editEvent').addEventListener('click', function () {
         editEventDialog.close();
@@ -142,7 +148,7 @@
     document.getElementById('button-confirm-editEvent').addEventListener('click', function () {
 
         // TODO Atualizar o evento no servidor
-        // id do evento : app.editEventID
+        // eventId do evento : app.editEventID
         let event = {
             title: document.getElementById('eventName').value,
             description: document.getElementById('eventDescription').value,
@@ -150,17 +156,17 @@
             date: document.getElementById('eventDate').value,
             time: document.getElementById('eventTime').value,
             color: document.getElementById('eventColor').value,
-            id: app.editEventID
+            eventId: app.editEventID
         };
 
-        app.events[event.id] = event;
+        app.events[event.eventId] = event;
 
         console.log(app.editEventID);
         editEventCard(event.title,
             event.date,
             event.time,
             event.color,
-            event.id
+            event.eventId
         );
 
         editEventDialog.close();
@@ -215,32 +221,49 @@
     function updateEvents() {
         // Baixar os eventos do usuário do servidor
         // e atualizar na página.
-        // TODO acessar o servidor e atualizar o vetor local
         app.events = [];
-        fakeEvents.forEach(element => {
-            createEventCard(element.title, element.date, element.time, element.color, element.id);
-            app.events[element.id] = element;
-            console.log(element.id);
-        });
+        get('/event/read/all', function (XHR) {
+            eventsArray = XHR.response;
+            app.events = eventsArray;
+            eventsArray.forEach(element => {
+                createEventCard(element.title, element.date, element.time, element.color, element.eventId);
+                app.events[element.eventId] = element;
+                console.log(element.eventId);
+            });
+        })
+
         //console.log(app.events);
     }
 
-    function createEventCard(title, date, time, color, id) {
-        var event = app.eventTemplate.cloneNode(true);
-        event.id = id;
-        event.querySelector('.title').textContent = title;
-        event.querySelector('.date').textContent = date;
-        event.querySelector('.time').textContent = time;
-        event.style.backgroundColor = colorEnum[color];
-        event.classList.remove('event-template');
-        event.removeAttribute('hidden');
-        app.eventsList.appendChild(event);
+    function createEventCard(title, date, time, color, eventId) {
+        var eventCard = app.eventTemplate.cloneNode(true);
+        eventCard.id = eventId;
+        eventCard.querySelector('.title').textContent = title;
+        eventCard.querySelector('.date').textContent = date;
+        eventCard.querySelector('.time').textContent = time;
+        eventCard.style.backgroundColor = colorEnum[color];
+        eventCard.classList.remove('event-template');
+        eventCard.removeAttribute('hidden');
+        app.eventsList.appendChild(eventCard);
+
+        eventCard.addEventListener('click', function () {
+            console.log('Clicou no card ' + eventCard.id);
+            app.editEventID = eventCard.id;
+            let event = app.events[eventCard.id];
+            document.getElementById('eventName').parentElement.MaterialTextfield.change(event.title);
+            document.getElementById('eventDescription').parentElement.MaterialTextfield.change(event.description);
+            document.getElementById('eventPlace').parentElement.MaterialTextfield.change(event.place);
+            document.getElementById('eventDate').value = event.date;
+            document.getElementById('eventTime').value = event.time;
+            document.getElementById('eventColor').parentElement.MaterialTextfield.change(event.color);
+            editEventDialog.showModal();
+        })
     }
 
-    function editEventCard(title, date, time, color, id) {
-        console.log(id);
-        var event = document.getElementById('' + id);
-        event.id = id;
+    function editEventCard(title, date, time, color, eventId) {
+        console.log(eventId);
+        var event = document.getElementById(eventId);
+        event.eventId = eventId;
         event.querySelector('.title').textContent = title;
         event.querySelector('.date').textContent = date;
         event.querySelector('.time').textContent = time;
@@ -252,7 +275,7 @@
         clearNews();
         app.interests.forEach(element => {
             getNews(wantedCategory = element, wantedPageSize = 3);
-            
+
         });
     }
 
@@ -310,7 +333,7 @@
     }
 
     function clearNews() {
-        while(app.newsList.firstChild) {
+        while (app.newsList.firstChild) {
             app.newsList.removeChild(app.newsList.firstChild);
         }
     }
@@ -330,16 +353,33 @@
         // the '+' character; matches the behaviour of browser form submissions.
         urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
 
-        XHR.onreadystatechange = function() {
+        XHR.onreadystatechange = function () {
             if (XHR.readyState === 4) {
-              callback(XHR.response);
+                callback(XHR.response);
             }
-          }
+        }
 
         //Send our request
         XHR.open('POST', url);
         XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         XHR.send(urlEncodedData);
+
+    }
+
+    function get(url, callback) {
+        var XHR = new XMLHttpRequest();
+
+        XHR.onreadystatechange = function () {
+            if (XHR.readyState === 4) {
+                callback(XHR);
+            }
+        }
+
+        //Send our request
+        XHR.open('GET', url);
+        XHR.responseType = 'json';
+        XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        XHR.send();
 
     }
 })();

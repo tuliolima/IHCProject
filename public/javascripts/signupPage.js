@@ -20,12 +20,12 @@
         }
 
         post('/signup/create', user, function(XHR) {
-            console.log(xhr.status);
-            if (xhr.status == 500) {
+            console.log(XHR.status);
+            if (XHR.status == 500) {
                 var data = { message: 'O cadastro falhou.' };
                 loginFailToast.MaterialSnackbar.showSnackbar(data);
             }
-            if (xhr.status == 200) {
+            if (XHR.status == 200) {
                 window.location.replace("/");
             }
         })

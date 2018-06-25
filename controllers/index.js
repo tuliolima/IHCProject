@@ -51,7 +51,7 @@ exports.home_page_event_update = function(req,res){
         Event.findById(id, function(err, doc) {
             if(err){
                 console.log("Erro ao encontrar evento no banco");
-                return response.status(500).send();
+                return res.status(500).send();
             }
             doc.eventId = req.body.id;
             doc. title = req.body.title;
@@ -77,7 +77,7 @@ exports.home_page_event_delete = function(req,res){
         Event.findByIdAndRemove(id, function(err, doc) {
             if(err){
                 console.log("Erro ao encontrar evento no banco");
-                return response.status(500).send();
+                return res.status(500).send();
             }
         });
     }
@@ -89,22 +89,38 @@ exports.home_page_event_get = function(req,res){
     if(!req.session.user){
         res.redirect('/login');
     }else{
-        var id = req.body.id;
+        var eventId = req.body.id;
         var title = req.body.title;
         //OPÇÃO 1 DE FIND: encontrar pelo ID no mongo
         // Event.findById(id,function(err,ev){
         //     if(err){
         //         console.log("Erro ao encontrar evento no banco");
-        //         return response.status(500).send();
+        //         return res.status(500).send();
         //     }
         // });
         //OPÇÃO 2 DE FIND: encontrar pelo titulo no banco
         Event.findOne({title: title},function(err,ev){
             if(err){
                 console.log("Erro ao encontrar evento no banco");
-                return response.status(500).send();
+                return res.status(500).send();
             }
+            return res.status(200).send(ev); //retorna o objeto inteiro
         });
-        return response.status(200).send(ev); //retorna o objeto inteiro
+    }
+}
+
+//READ ALL EVENTS
+exports.home_page_event_get_all = function(req,res){
+    console.log("GET REQUEST for the home page READ All event")
+    if(!req.session.user){
+        res.redirect('/login');
+    }else{
+        Event.find({}, function(err,event){
+            if(err){
+                console.log("Erro ao encontrar evento no banco");
+                return res.status(500).send();
+            }
+            return res.status(200).send(event); //retorna o objeto inteiro
+        });
     }
 }

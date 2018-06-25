@@ -15,6 +15,7 @@ router.post('/event/create', home_controller.home_page_event_post);
 router.post('/event/update',home_controller.home_page_event_update);
 router.post('/event/delete',home_controller.home_page_event_delete);
 router.get('/event/read',home_controller.home_page_event_get);
+router.get('/event/read/all',home_controller.home_page_event_get_all);
 
 // ----- LOGIN ROUTER -----
 //Route to login page
@@ -24,7 +25,7 @@ router.post('/login', login_controller.login_post);
 // ----- SIGNUP ROUTER -----
 // GET request for creating user. NOTE This must come before route for id (i.e. display user).
 router.get('/signup', users_controller.user_create_get);
-router.get('/signp/read',users_controller.user_read_get);
+router.get('/signup/read',users_controller.user_read_get);
 // POST request for creating user.
 router.post('/signup/create', users_controller.user_create_post);
 router.post('/signup/update', users_controller.user_update_post);

@@ -9,7 +9,7 @@ var EventSchema = new Schema(
         title:{type: String, required: true, max: 100},
         description:{type: String, max:140},
         place: {type: String, max: 100},
-        date: {type: Date, required: true}, //DATE ja inclui data e hora... tem que ver como fazer aqui
+        date: {type: String, required: true},
         time: {type: String}, //não tem default e nem required que é pra não dar treta
         //priority: {type: String, enum:['Very High','High','Medium','Low', 'None'], default: 'None'},
         //status: {type: String, enum: ['Finished', 'Late', 'In Progress', 'Pending', 'Delayed','None'], default: 'None'},

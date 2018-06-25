@@ -46,7 +46,7 @@ exports.user_update_post = function (req, res) {
         Event.findById(id, function(err, doc) {
             if(err){
                 console.log("Erro ao encontrar usuario no banco");
-                return response.status(500).send();
+                return res.status(500).send();
             }
             doc.name = req.body.name,
             doc.email = req.body.email,
@@ -67,22 +67,14 @@ exports.user_read_get = function(req,res){
     if(!req.session.user){
         res.redirect('/login');
     }else{
-        var id = req.body.id;
-        var username = req.body.username;
-        //OPÇÃO 1 DE FIND: encontrar pelo ID no mongo
-        // Event.findById(id,function(err,ev){
-        //     if(err){
-        //         console.log("Erro ao encontrar usuario no banco");
-        //         return response.status(500).send();
-        //     }
-        // });
-        //OPÇÃO 2 DE FIND: encontrar pelo titulo no banco
-        Event.findOne({username: username},function(err,us){
+        var username = req.session.user.username;
+
+        User.findOne({username: username},function(err,us){
             if(err){
                 console.log("Erro ao encontrar usuario no banco");
-                return response.status(500).send();
+                return res.status(500).send();
             }
+            return res.status(200).send(us); //retorna o objeto inteiro
         });
-        return response.status(200).send(us); //retorna o objeto inteiro
     }
 }
